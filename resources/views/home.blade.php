@@ -33,11 +33,11 @@
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Nueva Chat</h5>
+                                            <h5 class="modal-title" id="exampleModalLabel">Nuevo Chat</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Close"></button>
                                         </div>
-                                        <form method="POST" action="">
+                                        <form method="POST" action="{{route('chats.store')}}">
                                             @csrf
                                             <div class="modal-body">
                                                 <div class="form-group">
@@ -64,7 +64,7 @@
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Close"></button>
                                         </div>
-                                        <form method="POST" action="">
+                                        <form method="POST" action="{{route('chats.add')}}">
                                             @csrf
                                             <div class="modal-body">
                                                 <div class="form-group">
@@ -87,6 +87,7 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">ID</th>
+                                        <th scope="col">Nombre</th>
                                         <th scope="col">Codigo</th>
                                         <th scope="col">Acciones</th>
                                     </tr>
@@ -95,6 +96,7 @@
                                     @foreach ($chats as $chat)
                                         <tr>
                                             <td>{{ $chat->id }}</td>
+                                            <td>{{ $chat->name }}</td>
                                             <td>{{ $chat->code }}</td>
                                             <td>
                                                 <a href="{{route('chats.show',$chat->id)}}" class="btn btn-primary">
@@ -124,11 +126,21 @@
         <script>
             Swal.fire(
                 'Añadido correctamente',
-                'La Chat: {{ session('name') }} ha sido añadida correctamente.',
+                'El Chat: {{ session('name') }} ha sido añadido correctamente.',
                 'success'
             )
         </script>
     @endif
+
+    @if (session('create') == 'ok')
+    <script>
+        Swal.fire(
+            'Creado correctamente',
+            'El Chat: {{ session('name') }} ha sido creado correctamente.',
+            'success'
+        )
+    </script>
+@endif
 
     @if (session('error'))
         <script>

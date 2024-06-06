@@ -15,10 +15,12 @@ class ChatSeeder extends Seeder
     public function run(): void
     {
         $chat1 = Chat::create([
+            'name' => 'Charla con Alan',
             'code' => 'chat1',
         ]);
 
         $chat2 = Chat::create([
+            'name' => 'Charla con Jesus',
             'code' => 'chat2',
         ]);
 

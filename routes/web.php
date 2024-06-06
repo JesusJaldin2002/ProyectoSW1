@@ -28,4 +28,6 @@ Route::middleware(['auth'])->group(function () {
     
     //Chats
     Route::get('/chats/show/{id}',[ChatController::class, 'show'])->name('chats.show');
+    Route::post('/chats', [ChatController::class,'store'])->name('chats.store');
+    Route::post('/chats/add', [ChatController::class,'add'])->name('chats.add');
 });

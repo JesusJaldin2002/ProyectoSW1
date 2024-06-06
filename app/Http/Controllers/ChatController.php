@@ -28,7 +28,27 @@ class ChatController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate(
+            [
+                'name' => 'required|string|max:255',
+            ],
+            [
+                'name.required' => 'Por favor, ingrese un nombre para su chat',
+            ]
+        );
+
+        $chat = new Chat();
+        $chat->name = $request->name;
+        $chat->code = substr(str_shuffle(str_repeat($x = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil(8 / strlen($x)))), 1, 8);
+        $chat->save();
+
+
+        $chat->users()->attach(auth()->user());
+
+        return redirect()->route('home')->with([
+            'create' => 'ok',
+            'name' => $chat->name,
+        ]);
     }
 
     /**
@@ -63,5 +83,30 @@ class ChatController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function add(Request $request)
+    {
+        $request->validate(
+            [
+                'codigo' => 'required|string',
+            ],
+            [
+                'codigo.required' => 'Por favor, ingrese el codigo',
+            ]
+        );
+
+        $chat = Chat::where('code', $request->codigo)->first();
+        if ($chat) {
+            // Asociar el usuario autenticado a la sala
+            $chat->users()->attach(auth()->user());
+            return redirect()->route('home')->with([
+                'add' => 'ok',
+                'name' => $chat->name,
+            ]);
+        } else {
+            // Sala no encontrada
+            return redirect()->back()->with('error', 'Sala no encontrada, por favor ingrese otro código.');
+        }
     }
 }
