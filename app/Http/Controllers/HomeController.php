@@ -23,6 +23,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $user = auth()->user();
+        $chats = $user->chats;
+        
+        return view('home',compact('chats'));
     }
 }

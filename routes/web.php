@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ChatController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,4 +21,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Rutas que requieren autenticación
+Route::middleware(['auth'])->group(function () {
+
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    
+    //Chats
+    Route::get('/chats/show/{id}',[ChatController::class, 'show'])->name('chats.show');
+});
