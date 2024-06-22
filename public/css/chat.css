@@ -1,8 +1,18 @@
-.chat-body {
-    max-height: 500px;
-    overflow-y: auto;
+.chat-card {
     display: flex;
     flex-direction: column;
+    height: 70vh; /* Reducir la altura del chat card */
+}
+
+.chat-body {
+    flex: 1;
+    overflow-y: auto; /* Asegurar que el scroll esté dentro del chat body */
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    max-height: 60vh; /* Ajustar la altura del chat body */
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
 }
 
 .chat-message {
@@ -32,8 +42,17 @@
     margin-left: auto;
 }
 
+.date-separator {
+    text-align: center;
+    margin: 10px 0;
+    font-size: 0.85rem;
+    color: #999;
+}
+
 .chat-form {
-    margin-top: auto;
+    position: sticky;
+    bottom: 0;
+    padding: 10px 0;
 }
 
 .input-group {

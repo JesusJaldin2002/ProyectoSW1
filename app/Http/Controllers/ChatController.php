@@ -3,26 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Chat;
+use App\Models\Message;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ChatController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      */
@@ -57,8 +43,8 @@ class ChatController extends Controller
     public function show(string $id)
     {
         $chat = Chat::findOrFail($id);
-
-        return view('chats.show',compact('chat'));
+        $messages = $chat->messages()->orderBy('created_at', 'asc')->get();
+        return view('chats.show', compact('chat', 'messages'));
     }
 
     /**
@@ -108,5 +94,21 @@ class ChatController extends Controller
             // Sala no encontrada
             return redirect()->back()->with('error', 'Sala no encontrada, por favor ingrese otro código.');
         }
+    }
+
+    public function sendMessage(Request $request, $chatId)
+    {
+        $request->validate([
+            'message' => 'required|string',
+        ]);
+
+        $message = new Message();
+        $message->user_id = Auth::id();
+        $message->chat_id = $chatId;
+        $message->content = $request->message;
+        $message->save();
+
+        // Devolver el mensaje como respuesta JSON
+        return response()->json(['status' => 'Mensaje enviado', 'message' => $message]);
     }
 }
