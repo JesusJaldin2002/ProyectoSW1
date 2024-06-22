@@ -18,7 +18,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/holistic/holistic.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <link rel="stylesheet" type="text/css" href="css/styles2.css">
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-wasm/dist/tf-backend-wasm.js"></script>
     <!-- Todo esto es necesario para la detección de las señas -->
@@ -27,17 +27,17 @@
 
 <body class="antialiased">
     <div class="container">
-        <div id="loading" class="loading">Cargando...</div>
-        <canvas id="output_canvas" class="output_canvas" width="640" height="480"></canvas>
-
+        <video class="input_video" width="640" height="480" autoplay muted playsinline></video>
+        <canvas class="output_canvas" width="640" height="480"></canvas>
+    
         <div id="sentence-container"></div>
         <textarea id="detected-words" rows="4" cols="50" readonly></textarea>
         <button id="send-message">Send</button>
-        <button id="toggle-camera">Toggle Camera</button>
-    </div>
+    
+      </div>
 
-    <!-- Este es el script.js principal para lenguaje de señas -->
-    <script type="module" src="js/script.js"></script>
+      <!-- Este es el script.js principal para lenguaje de señas -->
+      <script type="module" src="js/script2.js"></script>
 </body>
 
 </html>
