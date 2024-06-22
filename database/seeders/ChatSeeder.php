@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Chat;
+use App\Models\Message;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -26,5 +27,6 @@ class ChatSeeder extends Seeder
 
         $chat1->users()->attach(1);
         $chat2->users()->attach(2);
+
     }
 }

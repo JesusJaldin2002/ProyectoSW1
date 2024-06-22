@@ -1,0 +1,92 @@
+.chat-card {
+    display: flex;
+    flex-direction: column;
+    height: 70vh; /* Reducir la altura del chat card */
+}
+
+.chat-body {
+    flex: 1;
+    overflow-y: auto; /* Asegurar que el scroll esté dentro del chat body */
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    max-height: 60vh; /* Ajustar la altura del chat body */
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+
+.chat-message {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 15px;
+    border-radius: 20px;
+    margin-bottom: 15px;
+    max-width: 75%;
+    position: relative;
+}
+
+.chat-message .message-time {
+    font-size: 0.75rem;
+    color: #999;
+    align-self: flex-end;
+}
+
+.chat-message.left {
+    background-color: #f1f0f0;
+    align-self: flex-start;
+}
+
+.chat-message.right {
+    background-color: #d1e7dd;
+    align-self: flex-end;
+    margin-left: auto;
+}
+
+.date-separator {
+    text-align: center;
+    margin: 10px 0;
+    font-size: 0.85rem;
+    color: #999;
+}
+
+.chat-form {
+    position: sticky;
+    bottom: 0;
+    padding: 10px 0;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Añadir espacio entre el input y el botón */
+}
+
+.input-group textarea {
+    resize: none;
+    flex: 1;
+    border-radius: 20px;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.input-group button {
+    border-radius: 20px;
+    padding: 10px 20px;
+}
+
+@media (max-width: 767.98px) {
+    .input-group {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .input-group textarea {
+        margin-right: 5px;
+        margin-bottom: 0;
+    }
+
+    .input-group button {
+        width: auto; /* Mantener el tamaño del botón */
+    }
+}
