@@ -26,6 +26,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const MIN_LENGTH_FRAMES = 5;
 
     const loadingElement = document.getElementById("loading");
+    // Get CSRF token from meta tag
+    const token = document
+        .querySelector('meta[name="csrf-token"]')
+        .getAttribute("content");
 
     tf.setBackend("wasm").then(async () => {
         try {
@@ -74,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             textToSpeech(sent);
 
                             if (sent === "mi") {
-                                sendMessage(); // Llama a la función de envío de mensaje
+                                sendMessage(true); // Llama a la función de envío de mensaje con revisión
                             } else if (sent === "L") {
                                 deleteLastWord();
                             } else {
@@ -205,10 +209,38 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    function sendMessage() {
+    async function reviewMessage(message) {
+        const response = await fetch('/review-message', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": token,
+            },
+            body: JSON.stringify({ message: message }),
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        return data.message;
+    }
+
+    async function sendMessage(withReview = false) {
         const message = detectedWordsElement.value.trim();
         if (message) {
-            chatForm.requestSubmit(); // Envía el formulario programáticamente
+            try {
+                let finalMessage = message;
+                if (withReview) {
+                    finalMessage = await reviewMessage(message);
+                }
+                detectedWordsElement.value = finalMessage;
+                chatForm.requestSubmit(); // Envía el formulario programáticamente con el mensaje revisado
+            } catch (error) {
+                console.error("Error reviewing the message:", error);
+                chatForm.requestSubmit(); // Envía el mensaje original si hay un error en la revisión
+            }
         }
     }
 
@@ -218,5 +250,5 @@ document.addEventListener("DOMContentLoaded", () => {
         detectedWordsElement.value = words.join(" ") + " ";
     }
 
-    sendMessageButton.addEventListener("click", sendMessage);
+    sendMessageButton.addEventListener("click", () => sendMessage(false));
 });

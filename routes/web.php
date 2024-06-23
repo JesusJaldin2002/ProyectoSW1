@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\MessageController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -31,5 +32,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/chats', [ChatController::class,'store'])->name('chats.store');
     Route::post('/chats/add', [ChatController::class,'add'])->name('chats.add');
     Route::post('chats/{chat}/send',[ChatController::class,'sendMessage'])->name('chats.send');
+
+    //Message chatgpt
+    Route::post('/review-message',[MessageController::class, 'review'])->name('review.message');
     
 });
