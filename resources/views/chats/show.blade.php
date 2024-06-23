@@ -95,7 +95,7 @@
 @section('scripts')
     <script type="module" src="{{ asset('js/script3.js') }}"></script>
     <script>
-        const socket = io('http://localhost:808');
+        const socket = io('http://54.83.154.221:80');
 
         document.getElementById('chat-form').addEventListener('submit', function(e) {
             e.preventDefault();
