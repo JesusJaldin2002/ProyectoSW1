@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-require_once(app_path('helpers/chatgpt.php'));
+require_once(app_path('Helpers/chatgpt.php'));
 
 class MessageController extends Controller
 {
