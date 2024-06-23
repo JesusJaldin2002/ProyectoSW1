@@ -1,7 +1,7 @@
 .chat-card {
     display: flex;
     flex-direction: column;
-    height: 70vh; /* Reducir la altura del chat card */
+    height: 80vh; /* Reducir la altura del chat card */
 }
 
 .chat-body {
@@ -10,7 +10,7 @@
     display: flex;
     flex-direction: column;
     padding: 10px;
-    max-height: 60vh; /* Ajustar la altura del chat body */
+    max-height: 70vh; /* Ajustar la altura del chat body */
     border-top: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
 }
@@ -75,6 +75,30 @@
     padding: 10px 20px;
 }
 
+.btn-camera-active {
+    background-color: #dc3545; /* Rojo */
+    color: white;
+    transition: background-color 0.3s ease-in-out;
+    border: none;
+}
+
+.btn-camera-active:hover {
+    background-color: #490200; /* Rojo más oscuro */
+}
+
+.btn-camera-inactive {
+    background-color: #28a745; /* Verde */
+    color: white;
+    transition: background-color 0.3s ease-in-out;
+    border: none;
+}
+
+.btn-camera-inactive:hover {
+    background-color: #1f7a37; /* Verde más oscuro */
+}
+
+
+
 @media (max-width: 767.98px) {
     .input-group {
         flex-direction: row;
@@ -90,3 +114,4 @@
         width: auto; /* Mantener el tamaño del botón */
     }
 }
+
