@@ -12,7 +12,7 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
 
     <!-- Styles -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/movil.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/styles.css') }}">
 
     <!-- Todo esto es necesario para la detección de las señas -->
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
