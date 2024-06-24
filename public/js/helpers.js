@@ -13,14 +13,21 @@ export function updateSentenceDisplay(sentence, sentenceContainer) {
 
 // Convierte la palabra de texto a voz
 export function textToSpeech(text) {
-    // Crear un nuevo objeto SpeechSynthesisUtterance con el texto proporcionado
-    const utterance = new SpeechSynthesisUtterance(text);
-
-    // Establecer el idioma del texto a sintetizar
-    utterance.lang = 'es';
-
-    // Usar la API de síntesis de voz para hablar el texto
-    speechSynthesis.speak(utterance);
+    try {
+        // Verifica si la API de síntesis de voz está disponible
+        if ('speechSynthesis' in window && typeof SpeechSynthesisUtterance !== 'undefined') {
+            // Crear un nuevo objeto SpeechSynthesisUtterance con el texto proporcionado
+            const utterance = new SpeechSynthesisUtterance(text);
+            // Establecer el idioma del texto a sintetizar
+            utterance.lang = 'es';
+            // Usar la API de síntesis de voz para hablar el texto
+            speechSynthesis.speak(utterance);
+        } else {
+            console.error('API de síntesis de voz no está disponible en este navegador.');
+        }
+    } catch (error) {
+        console.error('Error al intentar usar la síntesis de voz:', error);
+    }
 }
 
 // Formatea las oraciones para su visualización.
