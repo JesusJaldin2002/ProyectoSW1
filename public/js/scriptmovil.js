@@ -111,6 +111,11 @@ tf.setBackend('wasm').then(async () => {
     holistic.onResults(onResults);
 
     function startCamera() {
+        if (camera) {
+            camera.stop();
+            document.body.removeChild(camera.video);
+        }
+
         const videoElement = document.createElement('video');
         videoElement.width = 640;
         videoElement.height = 480;
@@ -136,14 +141,7 @@ tf.setBackend('wasm').then(async () => {
         camera.start();
     }
 
-    function stopCamera() {
-        if (camera) {
-            camera.stop();
-        }
-    }
-
     toggleCameraButton.addEventListener('click', () => {
-        stopCamera();
         useFrontCamera = !useFrontCamera;
         startCamera();
     });
