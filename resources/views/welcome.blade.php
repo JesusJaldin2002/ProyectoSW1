@@ -28,10 +28,10 @@
 <body class="antialiased">
     <div class="container">
         <div id="loading" class="loading">Cargando...</div>
-        <canvas id="output_canvas" class="output_canvas"></canvas>
+        <canvas id="output_canvas" class="output_canvas" width="640" height="480"></canvas>
 
         <div id="sentence-container"></div>
-        <textarea id="detected-words" rows="4" readonly></textarea>
+        <textarea id="detected-words" rows="4" cols="50" readonly></textarea>
         <button id="send-message">Send</button>
         <button id="toggle-camera">Toggle Camera</button>
     </div>
