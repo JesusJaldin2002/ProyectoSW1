@@ -37,7 +37,7 @@
     </div>
 
     <!-- Este es el script.js principal para lenguaje de señas -->
-    <script type="module" src="{{ asset('js/scriptmovil.js') }}"></script>
+    <script type="module" src="{{ asset('js/script.js') }}"></script>
 </body>
 
 </html>
