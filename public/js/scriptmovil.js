@@ -1,4 +1,4 @@
-import { updateSentenceDisplay, formatSentences, thereHand, extractKeypoints, drawGuidelines } from './helpers.js';
+import { updateSentenceDisplay, formatSentences, thereHand, extractKeypoints, drawGuidelines } from './helpers2.js';
 
 const canvasElement = document.getElementById('output_canvas');
 const canvasCtx = canvasElement.getContext('2d');
@@ -23,13 +23,10 @@ const MAX_LENGTH_FRAMES = 15;
 const MIN_LENGTH_FRAMES = 5;
 
 const loadingElement = document.getElementById('loading');
+let useFrontCamera = true;
 
 tf.setBackend('wasm').then(async () => {
     const model = await tf.loadLayersModel('./models/model.json');
-
-    // Ocultar el indicador de carga y mostrar los elementos de la cámara
-    loadingElement.style.display = 'none';
-    canvasElement.style.display = 'block';
 
     function onResults(results) {
         canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height); // Borra el contenido del lienzo.
@@ -114,7 +111,16 @@ tf.setBackend('wasm').then(async () => {
     holistic.onResults(onResults);
 
     function startCamera() {
-        camera = new Camera(videoElement, {
+        const videoElement = document.createElement('video');
+        videoElement.width = 640;
+        videoElement.height = 480;
+        videoElement.autoplay = true;
+        videoElement.muted = true;
+        videoElement.playsInline = true;
+        videoElement.style.display = 'none';
+        document.body.appendChild(videoElement);
+
+        const cameraOptions = {
             onFrame: async () => {
                 await holistic.send({ image: videoElement });
                 // Ocultar el indicador de carga y mostrar los elementos de la cámara
@@ -122,8 +128,11 @@ tf.setBackend('wasm').then(async () => {
                 canvasElement.style.display = 'block';
             },
             width: 640,
-            height: 480
-        });
+            height: 480,
+            facingMode: useFrontCamera ? 'user' : 'environment' // Cambiar entre cámara frontal y trasera
+        };
+
+        camera = new Camera(videoElement, cameraOptions);
         camera.start();
     }
 
@@ -134,22 +143,10 @@ tf.setBackend('wasm').then(async () => {
     }
 
     toggleCameraButton.addEventListener('click', () => {
-        if (camera) {
-            stopCamera();
-            camera = null;
-        } else {
-            startCamera();
-        }
+        stopCamera();
+        useFrontCamera = !useFrontCamera;
+        startCamera();
     });
-
-    const videoElement = document.createElement('video');
-    videoElement.width = 640;
-    videoElement.height = 480;
-    videoElement.autoplay = true;
-    videoElement.muted = true;
-    videoElement.playsInline = true;
-    videoElement.style.display = 'none';
-    document.body.appendChild(videoElement);
 
     startCamera();
 });
