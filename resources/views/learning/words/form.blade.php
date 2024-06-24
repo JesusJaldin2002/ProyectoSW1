@@ -24,7 +24,7 @@
                             <input type="file" class="form-control" id="gif_path" name="gif_path">
                             @if(isset($word) && $word->gif_path)
                                 <video width="320" height="240" autoplay loop muted>
-                                    <source src="{{ asset('storage/videos/' . $word->gif_path) }}" type="video/mp4">
+                                    <source src="{{ asset('storage/videos/' . $category->name . '/' . $word->gif_path) }}" type="video/mp4">
                                     Your browser does not support the video tag.
                                 </video>
                             @endif

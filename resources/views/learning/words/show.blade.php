@@ -23,7 +23,7 @@
                 <div class="card-body">
                     <div>
                         <video width="100%" autoplay loop muted>
-                            <source src="{{ asset('storage/videos/' . $word->gif_path) }}" type="video/mp4">
+                            <source src="{{ asset('storage/videos/' . $category->name . '/' . $word->gif_path) }}" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     </div>
