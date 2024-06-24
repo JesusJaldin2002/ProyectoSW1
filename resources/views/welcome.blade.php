@@ -12,7 +12,7 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
 
     <!-- Styles -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/movil.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/styles.css') }}">
 
     <!-- Todo esto es necesario para la detección de las señas -->
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
@@ -28,16 +28,16 @@
 <body class="antialiased">
     <div class="container">
         <div id="loading" class="loading">Cargando...</div>
-        <canvas id="output_canvas" class="output_canvas"></canvas>
+        <canvas id="output_canvas" class="output_canvas" width="640" height="480"></canvas>
 
         <div id="sentence-container"></div>
-        <textarea id="detected-words" rows="4" readonly></textarea>
+        <textarea id="detected-words" rows="4" cols="50" readonly></textarea>
         <button id="send-message">Send</button>
         <button id="toggle-camera">Toggle Camera</button>
     </div>
 
     <!-- Este es el script.js principal para lenguaje de señas -->
-    <script type="module" src="{{ asset('js/scriptmovil.js') }}"></script>
+    <script type="module" src="{{ asset('js/script.js') }}"></script>
 </body>
 
 </html>
