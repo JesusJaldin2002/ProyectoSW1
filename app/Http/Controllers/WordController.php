@@ -45,7 +45,7 @@ class WordController extends Controller
         $category = Category::findOrFail($categoryId);
 
         $videoFileName = $request->name . '.' . $request->file('gif_path')->getClientOriginalExtension();
-        $videoPath = $request->file('gif_path')->storeAs('public/videos/' . $category->name, $videoFileName);
+        $videoPath = $request->file('gif_path')->storeAs('public/videos/' . $category->name . '/' . $videoFileName);
 
         Word::create([
             'name' => $request->name,
@@ -66,37 +66,44 @@ class WordController extends Controller
     public function update(Request $request, $categoryId, Word $word)
     {
         $request->validate([
-            'name' => 'required|string|max:30|unique:words',
+            'name' => 'required|string|max:30|unique:words,name,' . $word->id,
             'gif_path' => 'file|mimes:mp4',
         ]);
-    
+
+        $category = Category::findOrFail($categoryId);
+
         // Guardar el nombre original del archivo antes de la actualización
         $originalVideoFileName = $word->gif_path;
-    
+
         if ($request->hasFile('gif_path')) {
             // Eliminar el video anterior si existe
             if ($word->gif_path) {
                 Storage::delete('public/videos/' . $category->name . '/' . $word->gif_path);
             }
-    
+
             // Generar el nuevo nombre del archivo de video
             $newVideoFileName = $request->name . '.' . $request->file('gif_path')->getClientOriginalExtension();
             $videoPath = $request->file('gif_path')->storeAs('public/videos/' . $category->name, $newVideoFileName);
             $word->gif_path = $newVideoFileName;
+        } else {
+            // Si solo se cambia el nombre de la palabra, pero no el video
+            if ($request->name !== $word->name) {
+                $newVideoFileName = $request->name . '.' . pathinfo($word->gif_path, PATHINFO_EXTENSION);
+                Storage::move('public/videos/' . $category->name . '/' . $originalVideoFileName, 'public/videos/' . $category->name . '/' . $newVideoFileName);
+                $word->gif_path = $newVideoFileName;
+            }
         }
-    
+
         // Si el nombre de la palabra ha cambiado, actualizarlo
         if ($request->name !== $word->name) {
             $word->name = $request->name;
         }
-    
-        // Renombrar el archivo de video si el nombre de la palabra ha cambiado
-        if ($originalVideoFileName !== $word->gif_path) {
-            Storage::move('public/videos/' . $category->name . '/' . $originalVideoFileName, 'public/videos/' . $category->name . '/' . $word->gif_path);
-        }
-    
+
+        $word->save();
+
         return redirect()->route('words.manage', $categoryId);
     }
+
 
     public function destroy($categoryId, Word $word)
     {
