@@ -38,12 +38,14 @@ class WordController extends Controller
     public function store(Request $request, $categoryId)
     {
         $request->validate([
-            'name' => 'required|string|max:30',
-            'gif_path' => 'required|file|mimes:mp4,avi,mov,wmv',
+            'name' => 'required|string|max:30|unique:words',
+            'gif_path' => 'required|file|mimes:mp4',
         ]);
 
+        $category = Category::findOrFail($categoryId);
+
         $videoFileName = $request->name . '.' . $request->file('gif_path')->getClientOriginalExtension();
-        $videoPath = $request->file('gif_path')->storeAs('videos', $videoFileName, 'public');
+        $videoPath = $request->file('gif_path')->storeAs('public/videos/' . $category->name, $videoFileName);
 
         Word::create([
             'name' => $request->name,
@@ -64,8 +66,8 @@ class WordController extends Controller
     public function update(Request $request, $categoryId, Word $word)
     {
         $request->validate([
-            'name' => 'required|string|max:30',
-            'gif_path' => 'file|mimes:mp4,avi,mov,wmv',
+            'name' => 'required|string|max:30|unique:words',
+            'gif_path' => 'file|mimes:mp4',
         ]);
     
         // Guardar el nombre original del archivo antes de la actualización
@@ -74,27 +76,23 @@ class WordController extends Controller
         if ($request->hasFile('gif_path')) {
             // Eliminar el video anterior si existe
             if ($word->gif_path) {
-                Storage::disk('public')->delete('videos/' . $word->gif_path);
+                Storage::delete('public/videos/' . $category->name . '/' . $word->gif_path);
             }
     
             // Generar el nuevo nombre del archivo de video
             $newVideoFileName = $request->name . '.' . $request->file('gif_path')->getClientOriginalExtension();
-            $videoPath = $request->file('gif_path')->storeAs('videos', $newVideoFileName, 'public');
+            $videoPath = $request->file('gif_path')->storeAs('public/videos/' . $category->name, $newVideoFileName);
             $word->gif_path = $newVideoFileName;
         }
     
         // Si el nombre de la palabra ha cambiado, actualizarlo
         if ($request->name !== $word->name) {
             $word->name = $request->name;
-            $word->save();
-        } else {
-            // Si solo se actualiza el video pero no el nombre, guardar los cambios del video
-            $word->save();
         }
     
         // Renombrar el archivo de video si el nombre de la palabra ha cambiado
         if ($originalVideoFileName !== $word->gif_path) {
-            Storage::disk('public')->move('videos/' . $originalVideoFileName, 'videos/' . $word->gif_path);
+            Storage::move('public/videos/' . $category->name . '/' . $originalVideoFileName, 'public/videos/' . $category->name . '/' . $word->gif_path);
         }
     
         return redirect()->route('words.manage', $categoryId);
@@ -102,11 +100,13 @@ class WordController extends Controller
 
     public function destroy($categoryId, Word $word)
     {
+        $category = Category::findOrFail($categoryId);
         // Eliminar el video asociado antes de eliminar la palabra
         if ($word->gif_path) {
-            Storage::disk('public')->delete('videos/' . $word->gif_path);
+            Storage::delete('public/videos/' . $category->name . '/' . $word->gif_path);
         }
         $word->delete();
+
         return redirect()->route('words.manage', $categoryId);
     }
 }

@@ -48,7 +48,7 @@
                             <a class="nav-link" href="{{ route('home') }}">{{ __('Chat') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">{{ __('Aprendizaje') }}</a>
+                            <a class="nav-link" href="{{ route('categories.index') }}">{{ __('Aprendizaje') }}</a>
                         </li>
                     @endauth
                     </ul>
