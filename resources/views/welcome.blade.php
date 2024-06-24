@@ -37,7 +37,7 @@
     </div>
 
     <!-- Este es el script.js principal para lenguaje de señas -->
-    <script type="module" src="js/script.js"></script>
+    <script type="module" src="js/script5.js"></script>
 </body>
 
 </html>
