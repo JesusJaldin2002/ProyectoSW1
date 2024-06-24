@@ -3,6 +3,7 @@
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\MovilController;
 use App\Http\Controllers\WordController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +22,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/movil',[MovilController::class,'camara'])->name('camara');
 
 Auth::routes();
 

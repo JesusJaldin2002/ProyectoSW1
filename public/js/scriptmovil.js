@@ -5,7 +5,7 @@ const canvasCtx = canvasElement.getContext('2d');
 
 // Selecciona el elemento HTML donde deseas mostrar las palabras de la oración
 const sentenceContainer = document.getElementById('sentence-container');
-let sentenceList = document.createElement('div'); // Creamos un contenedor para las palabras
+const sentenceList = document.createElement('div'); // Creamos un contenedor para las palabras
 sentenceContainer.appendChild(sentenceList);
 
 const detectedWordsElement = document.getElementById('detected-words');
@@ -15,7 +15,7 @@ const toggleCameraButton = document.getElementById('toggle-camera');
 let camera = null;
 let kpSequence = []; // Variable para almacenar la secuencia de keypoints
 let countFrame = 0;
-let actions = ['A','gracias','L','mi','nombre','por favor'];
+const actions = ['A', 'gracias', 'L', 'mi', 'nombre', 'por favor'];
 let repeSent = 1;
 let sentence = [];
 const threshold = 0.7;
@@ -25,37 +25,12 @@ const MIN_LENGTH_FRAMES = 5;
 const loadingElement = document.getElementById('loading');
 
 tf.setBackend('wasm').then(async () => {
-    // Carga del modelo TensorFlow.js
     const model = await tf.loadLayersModel('./models/model.json');
 
-    // Ocultar el indicador de carga y mostrar los elementos de la cámara
     loadingElement.style.display = 'none';
     canvasElement.style.display = 'block';
 
-    // Función para cargar los keypoints desde un archivo JSON
-    /*
-    async function loadKeypoints(filename) {
-        const response = await fetch(filename);
-        const keypoints = await response.json();
-        return keypoints;
-    }
-    */
-
-    // Cargar los keypoints desde el archivo exportado
-    ///const keypointsSequence = await loadKeypoints('keypoints_sequence.json');
-    
-    // Realizar la predicción con los keypoints cargados
-    /*
-    const inputTensor = tf.tensor([keypointsSequence]);
-    const prediction = model.predict(inputTensor);
-    const res = prediction.dataSync();
-    console.log('Resultados de la predicción:', res);
-    */
-
-
-    // Función que se llama cada vez que se obtienen resultados del modelo Holistic.
     function onResults(results) {
-        canvasCtx.save(); // Guarda el estado actual del contexto del lienzo.
         canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height); // Borra el contenido del lienzo.
 
         // Dibujar la imagen original en el canvas
@@ -68,14 +43,12 @@ tf.setBackend('wasm').then(async () => {
         // Realizar la evaluación del modelo
         if (kpSequence.length > MAX_LENGTH_FRAMES && thereHand(results)) {
             countFrame += 1;
-            console.log("la cantidad de frames es:", countFrame);
         } else {
             if (countFrame >= MIN_LENGTH_FRAMES) {
                 const lastKeypoints = kpSequence.slice(-MAX_LENGTH_FRAMES); // Obtener los últimos MAX_LENGTH_FRAMES keypoints
                 const inputTensor = tf.tensor([lastKeypoints]); // Crear un tensor con los keypoints
                 const prediction = model.predict(inputTensor); // Realizar la predicción con el modelo TensorFlow.js
                 const res = prediction.dataSync(); // Obtener los resultados de la predicción
-                console.log('Resultados de la predicción:', res);
 
                 if (Math.max(...res) > threshold) {
                     const maxIndex = res.indexOf(Math.max(...res));
@@ -117,35 +90,28 @@ tf.setBackend('wasm').then(async () => {
 
         // Llamar a drawGuidelines para dibujar las guías
         drawGuidelines(canvasCtx, canvasElement.width, canvasElement.height);
-
-        canvasCtx.restore(); // Restaurar el estado del contexto
     }
 
-    // Creación e inicialización del modelo Holistic:
     const holistic = new Holistic({
         locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/holistic/${file}`,
     });
 
-    // Se configuran las opciones del modelo, como la complejidad del modelo, la suavidad de los landmarks, etc.
     holistic.setOptions({
         modelComplexity: 1,
         smoothLandmarks: true,
         enableSegmentation: false,
         smoothSegmentation: true,
-        refineFaceLandmarks: false,  // Si está en true detecta 478 puntos, si está en false detecta 468 y eso necesito
+        refineFaceLandmarks: false,
         minDetectionConfidence: 0.5,
         minTrackingConfidence: 0.5
     });
 
-    // Se establece la función onResults como el controlador de eventos para los resultados del modelo.
     holistic.onResults(onResults);
 
-    // Función para iniciar la cámara
     function startCamera() {
         camera = new Camera(videoElement, {
             onFrame: async () => {
                 await holistic.send({ image: videoElement });
-                //requestAnimationFrame(startCamera);
             },
             width: 640,
             height: 480
@@ -153,14 +119,12 @@ tf.setBackend('wasm').then(async () => {
         camera.start();
     }
 
-    // Función para detener la cámara
     function stopCamera() {
         if (camera) {
             camera.stop();
         }
     }
 
-    // Manejo del botón de encendido/apagado de la cámara
     toggleCameraButton.addEventListener('click', () => {
         if (camera) {
             stopCamera();
@@ -170,7 +134,6 @@ tf.setBackend('wasm').then(async () => {
         }
     });
 
-    // Crear un elemento de video solo para capturar la entrada de la cámara
     const videoElement = document.createElement('video');
     videoElement.width = 640;
     videoElement.height = 480;
@@ -180,7 +143,6 @@ tf.setBackend('wasm').then(async () => {
     videoElement.style.display = 'none';
     document.body.appendChild(videoElement);
 
-    // Iniciar la cámara al cargar el modelo
     startCamera();
 });
 
@@ -198,5 +160,4 @@ function deleteLastWord() {
     detectedWordsElement.value = words.join(' ') + ' ';
 }
 
-// Manejo del botón de envío
 sendMessageButton.addEventListener('click', sendMessage);
