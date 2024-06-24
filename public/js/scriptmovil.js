@@ -1,4 +1,4 @@
-import { updateSentenceDisplay, formatSentences, thereHand, extractKeypoints, drawGuidelines } from './helpers.js';
+import { updateSentenceDisplay, formatSentences, thereHand, extractKeypoints, drawGuidelines } from './helpers2.js';
 
 const canvasElement = document.getElementById('output_canvas');
 const canvasCtx = canvasElement.getContext('2d');
