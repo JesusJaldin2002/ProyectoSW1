@@ -27,7 +27,10 @@
 
 <body class="antialiased">
     <div class="container">
-        <div id="loading" class="loading">Cargando...</div>
+        <div id="loading" class="loading">
+            <div class="loader"></div>
+            Cargando...
+        </div>
         <canvas id="output_canvas" class="output_canvas"></canvas>
 
         <div id="sentence-container"></div>

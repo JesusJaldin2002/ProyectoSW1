@@ -1,4 +1,4 @@
-import { updateSentenceDisplay, formatSentences, thereHand, extractKeypoints, drawGuidelines } from './helpers2.js';
+import { updateSentenceDisplay, formatSentences, thereHand, extractKeypoints, drawGuidelines } from './helpers.js';
 
 const canvasElement = document.getElementById('output_canvas');
 const canvasCtx = canvasElement.getContext('2d');
@@ -27,6 +27,7 @@ const loadingElement = document.getElementById('loading');
 tf.setBackend('wasm').then(async () => {
     const model = await tf.loadLayersModel('./models/model.json');
 
+    // Ocultar el indicador de carga y mostrar los elementos de la cámara
     loadingElement.style.display = 'none';
     canvasElement.style.display = 'block';
 
@@ -116,6 +117,9 @@ tf.setBackend('wasm').then(async () => {
         camera = new Camera(videoElement, {
             onFrame: async () => {
                 await holistic.send({ image: videoElement });
+                // Ocultar el indicador de carga y mostrar los elementos de la cámara
+                loadingElement.style.display = 'none';
+                canvasElement.style.display = 'block';
             },
             width: 640,
             height: 480
