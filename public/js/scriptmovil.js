@@ -33,6 +33,10 @@ tf.setBackend('wasm').then(async () => {
     function onResults(results) {
         canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height); // Borra el contenido del lienzo.
 
+        // Ajustar el tamaño del canvas según el tamaño de la pantalla
+        canvasElement.width = window.innerWidth;
+        canvasElement.height = window.innerHeight * 0.7;
+
         // Dibujar la imagen original en el canvas
         canvasCtx.drawImage(results.image, 0, 0, canvasElement.width, canvasElement.height);
 
