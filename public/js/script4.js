@@ -80,7 +80,7 @@ tf.setBackend('wasm').then(async () => {
                 if (Math.max(...res) > threshold) {
                     const maxIndex = res.indexOf(Math.max(...res));
                     const sent = actions[maxIndex];
-                    // textToSpeech(sent);
+                    textToSpeech(sent);
 
                         sentence.unshift(sent);
                         [sentence, repeSent] = formatSentences(sent, sentence, repeSent);

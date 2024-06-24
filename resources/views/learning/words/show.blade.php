@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('scripts2')
+@section('scripts')
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
@@ -14,7 +14,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <!-- Card para el video -->
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <span>Categoría: {{ $category->name }}</span>
@@ -39,21 +39,15 @@
                     <span>Detection</span>
                     <button id="toggle-camera" class="btn btn-primary">Toggle Camera</button>
                 </div>
-                {{-- <div class="card-body"> --}}
-                    {{-- <div id="loading">Loading...</div>
-                    <canvas id="output_canvas" style="display: none;"></canvas>
-                    <div id="sentence-container"></div>
-                    <p> </p>
-                    <textarea id="detected-words" readonly style="width: 100%; height: 30px;"></textarea>
-                    <button id="toggle-camera" class="btn btn-secondary">Toggle Camera</button> --}}
-                {{-- </div> --}}
                 <br>
                 <div id="loading">Loading...</div>
-                    <canvas id="output_canvas" style="display: none;"></canvas>
+                    <canvas id="output_canvas" width="640" height="480" style="display: none;"></canvas>
                     <div id="sentence-container"></div>
-                    <div style="margin-top: 15px;"></div>  
+                    {{-- <div style="margin-top: 15px;"></div>   --}}
+                    {{-- <canvas id="output_canvas" class="output_canvas" width="640" height="480"
+                        style="display: none;"></canvas> --}}
                     <textarea id="detected-words" readonly style="width: 100%; height: 30px; text-align: center;"></textarea>
-                    <div style="margin-top: 20px;"></div>               
+                    {{-- <div style="margin-top: 20px;"></div>                --}}
             </div>
         </div>
     </div>
