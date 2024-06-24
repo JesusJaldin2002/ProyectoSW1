@@ -9,6 +9,7 @@ import {
 
 document.addEventListener("DOMContentLoaded", () => {
     const canvasElement = document.getElementById("output_canvas");
+    const canvasColumn = document.getElementById("column_canvas");
     const canvasCtx = canvasElement.getContext("2d");
     const detectedWordsElement = document.getElementById("message");
     const sendMessageButton = document.querySelector(".btn.btn-primary");
@@ -36,6 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const model = await tf.loadLayersModel("/models/model.json");
             loadingElement.style.display = "none";
             canvasElement.style.display = "none";
+            canvasColumn.style.display = "none";
 
             function onResults(results) {
                 canvasCtx.save();
@@ -161,6 +163,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             function startCamera() {
                 canvasElement.style.display = "block";
+                canvasColumn.style.display = "block";
+                
                 camera = new Camera(videoElement, {
                     onFrame: async () => {
                         await holistic.send({ image: videoElement });
@@ -173,6 +177,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             function stopCamera() {
                 canvasElement.style.display = "none";
+                canvasColumn.style.display = "none";
                 if (camera) {
                     camera.stop();
                 }

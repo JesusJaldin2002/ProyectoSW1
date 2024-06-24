@@ -21,7 +21,15 @@
 
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-6" id="column_canvas" style="display: none;">
+                <div class="card">
+                    <!-- Controles para la cámara -->
+                    <div id="loading" class="loading" style="display: none;">Cargando...</div>
+                    <canvas id="output_canvas" class="output_canvas" width="640" height="480"
+                        style="display: none;"></canvas>
+                </div>
+            </div>
+            <div class="col-md-6">
                 <div class="card chat-card">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <span>Este es el chat {{ $chat->id }}</span>
@@ -81,11 +89,6 @@
                         </div>
                     </form>
 
-
-                    <!-- Controles para la cámara -->
-                    <div id="loading" class="loading" style="display: none;">Cargando...</div>
-                    <canvas id="output_canvas" class="output_canvas" width="640" height="480"
-                        style="display: none;"></canvas>
                 </div>
             </div>
         </div>
