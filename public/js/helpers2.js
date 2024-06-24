@@ -66,7 +66,7 @@ export function extractKeypoints(results) {
 // Dibuja líneas guía en la imagen
 export function drawGuidelines(ctx, width, height) {
     // Dibuja un rectángulo alrededor del área donde debe estar la cabeza
-    const headWidth = width * 0.3; // Ancho del rectángulo ajustado
+    const headWidth = width * 0.35; // Ancho del rectángulo ajustado
     const headHeight = height * 0.35;
     const headX = (width - headWidth) / 2; // Centrando el rectángulo
     const headY = height * 0.025;
