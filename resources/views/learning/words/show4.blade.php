@@ -7,7 +7,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/holistic/holistic.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-wasm/dist/tf-backend-wasm.js"></script>
-    <script type="module" src="{{ asset('js/script6.js') }}"></script>
+    <script type="module" src="{{ asset('js/script7.js') }}"></script>
     
 @endsection
 

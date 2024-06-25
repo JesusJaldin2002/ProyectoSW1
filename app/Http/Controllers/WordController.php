@@ -34,16 +34,18 @@ class WordController extends Controller
         $category = Category::findOrFail($categoryId);
 
         if ($category->name == "Varios") {
-            return $this->show2($categoryId, $word);
+            return view('learning.words.show2', compact('category', 'word'));
+        }
+
+        if ($category->name == "Alfabeto") {
+            return view('learning.words.show3', compact('category', 'word'));
+        }
+
+        if ($category->name == "Numeros") {
+            return view('learning.words.show4', compact('category', 'word'));
         }
 
         return view('learning.words.show', compact('category', 'word'));
-    }
-
-    public function show2($categoryId, Word $word)
-    {
-        $category = Category::findOrFail($categoryId);
-        return view('learning.words.show2', compact('category', 'word'));
     }
 
     public function store(Request $request, $categoryId)
