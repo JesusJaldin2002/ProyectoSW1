@@ -37,6 +37,7 @@
         <button id="send-message" style="display: none">Send</button>
         <button id="webcamButton">Enable Webcam</button>
         <button id="toggle-camera">Toggle Camera</button>
+        <video id="webcam" autoplay playsinline style="display:none;"></video>
     </div>
 
     <!-- Este es el script.js principal para lenguaje de señas -->

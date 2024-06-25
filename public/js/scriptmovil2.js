@@ -1,11 +1,11 @@
 import { GestureRecognizer, FilesetResolver, DrawingUtils } from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3";
 
-const demosSection = document.getElementById("demos");
+let demosSection = document.getElementById("demos");
 let gestureRecognizer;
 let runningMode = "IMAGE";
 let enableWebcamButton;
 let toggleCameraButton;
-let webcamRunning = true;
+let webcamRunning = false;
 let useFrontCamera = true;
 const videoHeight = "480px";
 const videoWidth = "640px";
@@ -159,13 +159,14 @@ function enableCam(event) {
 // Toggle camera between front and back
 function toggleCamera() {
     useFrontCamera = !useFrontCamera;
-    enableCam();
+    if (webcamRunning) {
+        enableCam();
+    }
 }
 
 let lastVideoTime = -1;
 let results = undefined;
 async function predictWebcam() {
-    const webcamElement = document.getElementById("webcam");
     // Now let's start detecting the stream.
     if (runningMode === "IMAGE") {
         runningMode = "VIDEO";
@@ -182,9 +183,9 @@ async function predictWebcam() {
     const drawingUtils = new DrawingUtils(canvasCtx);
 
     canvasElement.style.height = videoHeight;
-    webcamElement.style.height = videoHeight;
+    video.style.height = videoHeight;
     canvasElement.style.width = videoWidth;
-    webcamElement.style.width = videoWidth;
+    video.style.width = videoWidth;
 
     if (results.landmarks) {
         for (const landmarks of results.landmarks) {
