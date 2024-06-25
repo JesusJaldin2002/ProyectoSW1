@@ -35,6 +35,7 @@
         <div id="sentence-container"></div>
         <textarea id="detected-words" rows="4" cols="50" readonly></textarea>
         <button id="send-message" style="display: none">Send</button>
+        <button id="webcamButton">Enable Webcam</button>
         <button id="toggle-camera">Toggle Camera</button>
     </div>
 
