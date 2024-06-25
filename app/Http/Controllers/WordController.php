@@ -45,7 +45,10 @@ class WordController extends Controller
             return view('learning.words.show4', compact('category', 'word'));
         }
 
-        return view('learning.words.show', compact('category', 'word'));
+        if ($category->name == "Saludos") {
+            return view('learning.words.show', compact('category', 'word'));
+        }
+
     }
 
     public function store(Request $request, $categoryId)
