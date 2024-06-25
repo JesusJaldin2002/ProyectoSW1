@@ -24,7 +24,6 @@ Route::get('/', function () {
 });
 
 Route::get('/movil',[MovilController::class,'camara'])->name('camara');
-Route::get('/movil2',[MovilController::class,'camara2'])->name('camara2');
 
 Auth::routes();
 

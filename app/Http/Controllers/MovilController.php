@@ -10,9 +10,4 @@ class MovilController extends Controller
     {
         return view('movil.camara');
     }
-
-    public function camara2()
-    {
-        return view('movil.camara2');
-    }
 }
