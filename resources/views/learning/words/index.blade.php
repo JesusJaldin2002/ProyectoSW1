@@ -5,8 +5,9 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">
-                    Words in {{ $category->name }}
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <span>Words in {{ $category->name }}</span>
+                    <a href="{{ url()->previous() }}" class="btn btn-secondary btn-sm">Volver</a>
                 </div>
 
                 <div class="card-body">

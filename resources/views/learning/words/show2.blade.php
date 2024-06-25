@@ -7,18 +7,18 @@
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/holistic/holistic.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-wasm/dist/tf-backend-wasm.js"></script>
-    <script type="module" src="{{ asset('js/script4.js') }}"></script>
+    <script type="module" src="{{ asset('js/script6.js') }}"></script>
+    
 @endsection
 
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <!-- Card para el video -->
+        <!-- Demo para reconocimiento de gestos en imágenes -->
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <span>Categoría: {{ $category->name }}</span>
-                    <a href="{{ URL::previous() }}" class="btn btn-primary btn-sm">Back</a>
                 </div>
                 <div class="card-body">
                     <div>
@@ -27,31 +27,35 @@
                             Your browser does not support the video tag.
                         </video>
                     </div>
-                    <h3 style="text-align: center;">{{ $word->name }}</h3>
+                    <h3 style="text-align: center;">{{ $word->name }}</h3>                  
                 </div>
             </div>
         </div>
 
-        <!-- Card para la detección -->
+        <!-- Demo para detección continua de gestos con la cámara web -->
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <span>Detection</span>
-                    <button id="toggle-camera" class="btn btn-primary">Toggle Camera</button>
+                    <button id="webcamButton" class="btn btn-primary">
+                        <span class="mdc-button__ripple"></span>
+                        <span class="mdc-button__label">Toggle Camera</span>
+                    </button>
                 </div>
                 <br>
-                <div id="loading">Loading...</div>
-                    <canvas id="output_canvas" width="640" height="480" style="display: none;"></canvas>
-                    <div id="sentence-container"></div>
-                    {{-- <div style="margin-top: 15px;"></div>   --}}
-                    {{-- <canvas id="output_canvas" class="output_canvas" width="640" height="480"
-                        style="display: none;"></canvas> --}}
-                    <br>
-                    <textarea id="detected-words" readonly style="width: 100%; height: 30px; text-align: center;"></textarea>
-                    {{-- <div style="margin-top: 20px;"></div>                --}}
+                <div class="card-body p-0">
+                    <div id="liveView" class="videoView">
+                        <div style="position: relative;">
+                            <video id="webcam" autoplay playsinline></video>
+                            <canvas class="output_canvas" id="output_canvas" style="position: absolute; left: 0px; top: 0px;"></canvas>
+                            {{-- <p id='gesture_output' class="output"></p> --}}
+                        
+                            <textarea id='gesture_output'  readonly style="width: 100%; height: 30px; text-align: center;"></textarea>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 @endsection
-
