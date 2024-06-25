@@ -15,7 +15,7 @@ const toggleCameraButton = document.getElementById('toggle-camera');
 let camera = null;
 let kpSequence = []; // Variable para almacenar la secuencia de keypoints
 let countFrame = 0;
-const actions = ['A', 'gracias', 'L', 'mi', 'nombre', 'por favor'];
+const actions = ["buenos dias", "como estas", "enviar mensaje", "estoy bien", "hola", "mio", "no", "nombre", "por favor"];
 let repeSent = 1;
 let sentence = [];
 const threshold = 0.7;
@@ -57,9 +57,9 @@ tf.setBackend('wasm').then(async () => {
                     const sent = actions[maxIndex];
 
                     // Enviar mensaje si la palabra es "mi"
-                    if (sent === 'mi') {
+                    if (sent === 'enviar mensaje') {
                         sendMessage();
-                    } else if (sent === 'L') {
+                    } else if (sent === 'no') {
                         // Borrar palabra si la palabra es "L"
                         deleteLastWord();
                     } else {

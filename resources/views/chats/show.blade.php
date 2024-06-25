@@ -33,9 +33,13 @@
                 <div class="card chat-card">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <span>Este es el chat {{ $chat->id }}</span>
-                        <button id="toggle-camera" class="btn btn-secondary btn-camera-inactive">
-                            <i id="camera-icon" class="fas fa-camera"></i>
-                        </button>
+                        <div>
+                            <button id="toggle-camera" class="btn btn-secondary btn-camera-inactive">
+                                <i id="camera-icon" class="fas fa-camera"></i>
+                            </button>
+                            <!-- Botón que cambia el modelo al alfabeto-->
+                            <button id="toggle-model" class="btn btn-secondary">Alfabeto</button>
+                        </div>
                     </div>
 
                     <div class="card-body chat-body">
@@ -96,7 +100,7 @@
 @endsection
 
 @section('scripts')
-    <script type="module" src="{{ asset('js/script3.js') }}"></script>
+    <script type="module" src="{{ asset('js/script-combinado.js') }}"></script>
     <script>
         const socket = io('https://servidor-socket.duckdns.org:8080/');
         // const socket = io('http://localhost:8080');
@@ -144,5 +148,6 @@
             const chatBody = document.querySelector('.chat-body');
             chatBody.scrollTop = chatBody.scrollHeight;
         }
+
     </script>
 @endsection

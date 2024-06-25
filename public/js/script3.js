@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let camera = null;
     let kpSequence = [];
     let countFrame = 0;
-    let actions = ["A", "gracias", "L", "mi", "nombre", "por favor"];
+    let actions = ["buenos dias", "como estas", "enviar mensaje", "estoy bien", "hola", "mio", "no", "nombre", "por favor"];
     let repeSent = 1;
     let sentence = [];
     const threshold = 0.7;
@@ -79,9 +79,9 @@ document.addEventListener("DOMContentLoaded", () => {
                             const sent = actions[maxIndex];
                             textToSpeech(sent);
 
-                            if (sent === "mi") {
+                            if (sent === "enviar mensaje") {
                                 sendMessage(true); // Llama a la función de envío de mensaje con revisión
-                            } else if (sent === "L") {
+                            } else if (sent === "no") {
                                 deleteLastWord();
                             } else {
                                 sentence.unshift(sent);
