@@ -20,7 +20,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    if (Auth::check()) {
+        return redirect('/home');
+    }
+    return redirect('/login');
 });
 
 Route::get('/movil',[MovilController::class,'camara'])->name('camara');
