@@ -30,7 +30,7 @@
         <div id="loading" class="loading">
             Cargando...
         </div>
-        <div id="video-container" style="position: relative; width: 100%; max-width: 640px; margin: auto;">
+        <div id="video-container" style="position: relative; width: 100%; max-width: 360px; margin: auto;">
             <video id="webcam" autoplay playsinline style="width: 100%;"></video>
             <canvas id="output_canvas" class="output_canvas" style="position: absolute; left: 0; top: 0;"></canvas>
         </div>

@@ -8,7 +8,7 @@ let toggleCameraButton;
 let webcamRunning = false;
 let useFrontCamera = true;
 const videoHeight = "480px";
-const videoWidth = "640px";
+const videoWidth = "360px";  // Ajustado para vista móvil vertical
 
 // Before we can use HandLandmarker class we must wait for it to finish loading. Machine Learning models can be large and take a moment to get everything needed to run.
 const createGestureRecognizer = async () => {
@@ -102,12 +102,13 @@ async function handleClick(event) {
                 GestureRecognizer.HAND_CONNECTIONS,
                 {
                     color: "#00FF00",
-                    lineWidth: 5
+                    lineWidth: 2  // Reducido el ancho de línea
                 }
             );
             drawingUtils.drawLandmarks(landmarks, {
                 color: "#FF0000",
-                lineWidth: 1
+                lineWidth: 1,  // Reducido el ancho de los puntos
+                radius: 3  // Reducido el tamaño de los puntos
             });
         }
     }
@@ -152,7 +153,10 @@ function enableCam(event) {
     // Activate the webcam stream.
     navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
         video.srcObject = stream;
-        video.addEventListener("loadeddata", predictWebcam);
+        video.addEventListener("loadeddata", () => {
+            predictWebcam();
+            document.getElementById("loading").style.display = "none";  // Ocultar "Cargando..."
+        });
         webcamRunning = true;
     });
 }
@@ -195,12 +199,13 @@ async function predictWebcam() {
                 GestureRecognizer.HAND_CONNECTIONS,
                 {
                     color: "#00FF00",
-                    lineWidth: 5
+                    lineWidth: 2  // Reducido el ancho de línea
                 }
             );
             drawingUtils.drawLandmarks(landmarks, {
                 color: "#FF0000",
-                lineWidth: 2
+                lineWidth: 1,  // Reducido el ancho de los puntos
+                radius: 3  // Reducido el tamaño de los puntos
             });
         }
     }
