@@ -6,6 +6,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
+                    <a href="{{ route('categories.manage') }}" class="btn btn-primary">Categorías</a>
                     <span>Words in {{ $category->name }}</span>
                     <a href="{{ route('words.create', $category->id) }}" class="btn btn-success">New Word</a>
                 </div>
