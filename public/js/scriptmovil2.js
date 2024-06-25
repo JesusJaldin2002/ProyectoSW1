@@ -199,13 +199,13 @@ async function predictWebcam() {
                 GestureRecognizer.HAND_CONNECTIONS,
                 {
                     color: "#00FF00",
-                    lineWidth: 2  // Reducido el ancho de línea
+                    lineWidth: 4  // Reducido el ancho de línea
                 }
             );
             drawingUtils.drawLandmarks(landmarks, {
                 color: "#FF0000",
                 lineWidth: 1,  // Reducido el ancho de los puntos
-                radius: 3  // Reducido el tamaño de los puntos
+                radius: 4  // Reducido el tamaño de los puntos
             });
         }
     }
