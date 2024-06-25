@@ -44,8 +44,10 @@ class WordController extends Controller
 
         $category = Category::findOrFail($categoryId);
 
-        $videoFileName = $request->name . '.' . $request->file('gif_path')->getClientOriginalExtension();
-        $videoPath = $request->file('gif_path')->storeAs('public/videos/' . $category->name . '/' . $videoFileName);
+        // Reemplazar los espacios en el nombre por guiones bajos
+        $sanitizedFileName = str_replace(' ', '_', $request->name);
+        $videoFileName = $sanitizedFileName . '.' . $request->file('gif_path')->getClientOriginalExtension();
+        $videoPath = $request->file('gif_path')->storeAs('public/videos/' . $category->name, $videoFileName);
 
         Word::create([
             'name' => $request->name,
@@ -81,14 +83,16 @@ class WordController extends Controller
                 Storage::delete('public/videos/' . $category->name . '/' . $word->gif_path);
             }
 
-            // Generar el nuevo nombre del archivo de video
-            $newVideoFileName = $request->name . '.' . $request->file('gif_path')->getClientOriginalExtension();
+            // Reemplazar los espacios en el nombre por guiones bajos
+            $sanitizedFileName = str_replace(' ', '_', $request->name);
+            $newVideoFileName = $sanitizedFileName . '.' . $request->file('gif_path')->getClientOriginalExtension();
             $videoPath = $request->file('gif_path')->storeAs('public/videos/' . $category->name, $newVideoFileName);
             $word->gif_path = $newVideoFileName;
         } else {
             // Si solo se cambia el nombre de la palabra, pero no el video
             if ($request->name !== $word->name) {
-                $newVideoFileName = $request->name . '.' . pathinfo($word->gif_path, PATHINFO_EXTENSION);
+                $sanitizedFileName = str_replace(' ', '_', $request->name);
+                $newVideoFileName = $sanitizedFileName . '.' . pathinfo($word->gif_path, PATHINFO_EXTENSION);
                 Storage::move('public/videos/' . $category->name . '/' . $originalVideoFileName, 'public/videos/' . $category->name . '/' . $newVideoFileName);
                 $word->gif_path = $newVideoFileName;
             }
