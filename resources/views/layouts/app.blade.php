@@ -8,7 +8,8 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ 'Traductor de LSB' }}</title>
+    <link rel="icon" href="{{ asset('images/logo.png') }}" type="image/png">
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
@@ -22,17 +23,41 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     @yield('styles')
     
+    <style>
+        .navbar {
+            background-color: #6c757d; /* Gris oscuro */
+        }
+        .nav-link {
+            color: white !important;
+        }
+        .navbar-brand {
+            color: white !important;
+        }
+        .navbar-toggler {
+            color: rgba(255,255,255,0.5);
+            border-color: rgba(255,255,255,0.1);
+        }
+        .dropdown-menu {
+            background-color: #6c757d;
+        }
+        .dropdown-item {
+            color: white !important;
+        }
+        .dropdown-item:hover {
+            background-color: #5a6268; /* Gris aún más oscuro para hover */
+        }
+    </style>
+    
     @yield('scripts2')
-
     
 </head>
 
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    {{ 'Traductor de LSB' }}
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -59,13 +84,13 @@
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Iniciar Sesion') }}</a>
                                 </li>
                             @endif
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Registrarse') }}</a>
                                 </li>
                             @endif
                         @else
