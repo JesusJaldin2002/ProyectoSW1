@@ -153,6 +153,7 @@ function enableCam(event) {
     navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
         video.srcObject = stream;
         video.addEventListener("loadeddata", predictWebcam);
+        webcamRunning = true;
     });
 }
 

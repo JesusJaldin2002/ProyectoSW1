@@ -30,14 +30,15 @@
         <div id="loading" class="loading">
             Cargando...
         </div>
-        <canvas id="output_canvas" class="output_canvas"></canvas>
-        <div id="gesture_output" style="display: none"></div>
-        <div id="sentence-container"></div>
-        <textarea id="detected-words" rows="4" cols="50" readonly></textarea>
-        <button id="send-message" style="display: none">Send</button>
-        <button id="webcamButton">Enable Webcam</button>
-        <button id="toggle-camera">Toggle Camera</button>
-        <video id="webcam" autoplay playsinline style="display:none;"></video>
+        <div id="video-container" style="position: relative; width: 100%; max-width: 640px; margin: auto;">
+            <video id="webcam" autoplay playsinline style="width: 100%;"></video>
+            <canvas id="output_canvas" class="output_canvas" style="position: absolute; left: 0; top: 0;"></canvas>
+        </div>
+        <textarea id="gesture_output" readonly style="width: 100%; height: 30px; text-align: center;"></textarea>
+        <div style="display: flex; justify-content: center; margin-top: 10px;">
+            <button id="webcamButton" class="btn btn-primary">Enable Webcam</button>
+            <button id="toggle-camera" class="btn btn-secondary" style="margin-left: 10px;">Toggle Camera</button>
+        </div>
     </div>
 
     <!-- Este es el script.js principal para lenguaje de señas -->
