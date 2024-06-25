@@ -22,7 +22,9 @@ const createGestureRecognizer = async () => {
         },
         runningMode: runningMode
     });
-    demosSection.classList.remove("invisible");
+    if (demosSection) {
+        demosSection.classList.remove("invisible");
+    }
 };
 createGestureRecognizer();
 

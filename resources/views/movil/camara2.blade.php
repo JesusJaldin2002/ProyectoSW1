@@ -31,7 +31,7 @@
             Cargando...
         </div>
         <canvas id="output_canvas" class="output_canvas"></canvas>
-
+        <div id="gesture_output" style="display: none"></div>
         <div id="sentence-container"></div>
         <textarea id="detected-words" rows="4" cols="50" readonly></textarea>
         <button id="send-message" style="display: none">Send</button>
