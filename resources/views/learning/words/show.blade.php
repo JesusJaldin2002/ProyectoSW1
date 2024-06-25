@@ -46,6 +46,7 @@
                     {{-- <div style="margin-top: 15px;"></div>   --}}
                     {{-- <canvas id="output_canvas" class="output_canvas" width="640" height="480"
                         style="display: none;"></canvas> --}}
+                    <br>
                     <textarea id="detected-words" readonly style="width: 100%; height: 30px; text-align: center;"></textarea>
                     {{-- <div style="margin-top: 20px;"></div>                --}}
             </div>
